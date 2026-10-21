@@ -47,7 +47,7 @@
     "motion": "^12.43.0",
     "pg": "^8.23.1",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1",
+    "react-dom": "^19.3.1",
     "zod": "^3.25.76"
   },
   "devDependencies": {
@@ -55,7 +55,7 @@
     "@types/node": "^22.20.5",
     "@types/pg": "^8.23.1",
     "@types/react": "^18.3.31",
-    "@types/react-dom": "^18.3.7",
+    "@types/react-dom": "^19.3.0",
     "@vitejs/plugin-react": "^4.7.0",
     "concurrently": "^10.0.6",
     "esbuild": "^0.28.2",
