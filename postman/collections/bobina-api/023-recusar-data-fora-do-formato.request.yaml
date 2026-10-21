@@ -1,0 +1,20 @@
+$kind: http-request
+name: "Recusar data fora do formato"
+order: 23000
+method: PATCH
+url: '{{baseUrl}}/tasks/{{taskId}}'
+headers:
+  - key: "Content-Type"
+    value: "application/json"
+body:
+  type: json
+  content: |-
+    {
+      "dueDate": "20/10/2026"
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('Status HTTP esperado: 400', () => pm.expect(pm.response.code).to.be.oneOf([400]));
+      

@@ -1,0 +1,21 @@
+$kind: http-request
+name: "Destrancar branch"
+order: 38000
+method: PATCH
+url: '{{baseUrl}}/branches/{{branchId}}'
+headers:
+  - key: "Content-Type"
+    value: "application/json"
+body:
+  type: json
+  content: |-
+    {
+      "locked": false
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('Status HTTP esperado: 200', () => pm.expect(pm.response.code).to.be.oneOf([200]));
+      pm.test("Destrancada", () => pm.expect(pm.response.json().locked).to.eql(false));
+      

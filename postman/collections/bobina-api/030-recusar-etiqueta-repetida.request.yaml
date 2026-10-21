@@ -1,0 +1,22 @@
+$kind: http-request
+name: "Recusar etiqueta repetida"
+order: 30000
+method: POST
+url: '{{baseUrl}}/labels'
+headers:
+  - key: "Content-Type"
+    value: "application/json"
+body:
+  type: json
+  content: |-
+    {
+      "name": "PM {{runId}}",
+      "color": "#000000"
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('Status HTTP esperado: 409', () => pm.expect(pm.response.code).to.be.oneOf([409]));
+      
+examples: './.resources/030-recusar-etiqueta-repetida.resources/examples/'

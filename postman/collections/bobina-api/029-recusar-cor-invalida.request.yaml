@@ -1,0 +1,20 @@
+$kind: http-request
+name: "Recusar cor inválida"
+order: 29000
+method: PATCH
+url: '{{baseUrl}}/labels/{{labelId}}'
+headers:
+  - key: "Content-Type"
+    value: "application/json"
+body:
+  type: json
+  content: |-
+    {
+      "color": "verde"
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('Status HTTP esperado: 400', () => pm.expect(pm.response.code).to.be.oneOf([400]));
+      

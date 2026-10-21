@@ -1,0 +1,14 @@
+$kind: collection
+name: "nexus-tasks — cenários do mock"
+description: "Exclusiva do mock: estado, isolamento de sessão, reset e falhas 503/429. Nenhuma dessas rotas de controle existe na API real."
+variables:
+  - key: baseUrl
+    value: 'http://127.0.0.1:3334/api'
+auth:
+  type: noauth
+scripts:
+  - type: http:afterResponse
+    language: text/javascript
+    code: |-
+      if (pm.response.code !== 204) { pm.test('Resposta JSON',()=>pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json')); }
+      if (pm.response.code >= 400) pm.test('Erro possui mensagem',()=>pm.expect(pm.response.json().error).to.be.a('string').and.not.empty);

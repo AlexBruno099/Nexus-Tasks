@@ -1,0 +1,11 @@
+$kind: http-request
+name: "Conferir limpeza dos registros"
+order: 58000
+method: GET
+url: '{{baseUrl}}/board'
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('Status HTTP esperado: 200', () => pm.expect(pm.response.code).to.be.oneOf([200]));
+      pm.test('Registros deste teste foram removidos',()=>{ const b=pm.response.json(); pm.expect(b.tasks.some(t=>[Number(pm.collectionVariables.get('taskId')),Number(pm.collectionVariables.get('secondId'))].includes(t.id))).to.eql(false); pm.expect(b.columns.some(c=>[Number(pm.collectionVariables.get('todoId')),Number(pm.collectionVariables.get('doneId'))].includes(c.id))).to.eql(false); pm.expect(b.branches.some(b=>b.id===Number(pm.collectionVariables.get('branchId')))).to.eql(false); pm.expect(b.labels.some(l=>l.id===Number(pm.collectionVariables.get('labelId')))).to.eql(false); });

@@ -1,0 +1,20 @@
+$kind: http-request
+name: "Regressão — recusar ID fora da faixa com 400"
+order: 12000
+method: PATCH
+url: '{{baseUrl}}/tasks/2147483648'
+headers:
+  - key: "Content-Type"
+    value: "application/json"
+body:
+  type: json
+  content: |-
+    {
+      "title": "ID inválido"
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('Status HTTP esperado: 400', () => pm.expect(pm.response.code).to.be.oneOf([400]));
+      

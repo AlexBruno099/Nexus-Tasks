@@ -1,0 +1,22 @@
+$kind: http-request
+name: "Regressão — recusar data impossível com 400"
+order: 11000
+method: POST
+url: '{{baseUrl}}/tasks'
+headers:
+  - key: "Content-Type"
+    value: "application/json"
+body:
+  type: json
+  content: |-
+    {
+      "title": "Data impossível",
+      "columnId": "{{todoId}}",
+      "dueDate": "2026-02-31"
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('Status HTTP esperado: 400', () => pm.expect(pm.response.code).to.be.oneOf([400]));
+      

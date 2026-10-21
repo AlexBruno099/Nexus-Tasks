@@ -1,0 +1,17 @@
+$kind: http-example
+name: Resposta
+request:
+  method: POST
+  url: '{{baseUrl}}/labels'
+response:
+  statusCode: 409
+  statusText: "Conflict"
+  headers:
+    - key: Content-Type
+      value: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "error": "Já existe um item com esse nome."
+      }

@@ -1,0 +1,12 @@
+$kind: http-request
+name: "Excluir coluna de entrada"
+order: 56000
+method: DELETE
+url: '{{baseUrl}}/columns/{{todoId}}'
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('Status HTTP esperado: 204', () => pm.expect(pm.response.code).to.be.oneOf([204]));
+      pm.test('Resposta sem corpo', () => pm.expect(pm.response.text()).to.eql(''));
+      

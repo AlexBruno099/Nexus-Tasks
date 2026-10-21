@@ -1,0 +1,17 @@
+$kind: http-example
+name: Resposta
+request:
+  method: PATCH
+  url: '{{baseUrl}}/tasks/2147483647'
+response:
+  statusCode: 404
+  statusText: "Not Found"
+  headers:
+    - key: Content-Type
+      value: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "error": "Task não encontrada."
+      }

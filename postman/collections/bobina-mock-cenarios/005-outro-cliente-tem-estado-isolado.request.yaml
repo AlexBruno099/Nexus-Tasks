@@ -1,0 +1,15 @@
+$kind: http-request
+name: "Outro cliente tem estado isolado"
+order: 5000
+method: GET
+url: '{{baseUrl}}/board'
+headers:
+  - key: "x-mock-session"
+    value: "outra-{{runId}}"
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('Status HTTP esperado: 200', () => pm.expect(pm.response.code).to.be.oneOf([200]));
+      pm.test("Dado da outra sessão ausente", () => pm.expect(pm.response.json().columns.some(c=>c.name==='Sessão '+pm.collectionVariables.get('runId'))).to.eql(false));
+      

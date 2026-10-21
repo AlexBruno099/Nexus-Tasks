@@ -1,0 +1,11 @@
+$kind: http-request
+name: "Limpeza — tarefa trancada"
+order: 22000
+method: DELETE
+url: '{{baseUrl}}/tasks/{{lockedTaskId}}'
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('Status HTTP esperado: 204 ou 404', () => pm.expect(pm.response.code).to.be.oneOf([204,404]));
+      

@@ -1,0 +1,21 @@
+$kind: http-request
+name: "Recusar coluna inexistente"
+order: 24000
+method: POST
+url: '{{baseUrl}}/tasks'
+headers:
+  - key: "Content-Type"
+    value: "application/json"
+body:
+  type: json
+  content: |-
+    {
+      "title": "Inexistente",
+      "columnId": 2147483647
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('Status HTTP esperado: 400', () => pm.expect(pm.response.code).to.be.oneOf([400]));
+      

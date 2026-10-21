@@ -1,0 +1,20 @@
+$kind: http-request
+name: "Trancar branch para exclusão"
+order: 18000
+method: PATCH
+url: '{{baseUrl}}/branches/{{branchId}}'
+headers:
+  - key: "Content-Type"
+    value: "application/json"
+body:
+  type: json
+  content: |-
+    {
+      "locked": true
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('Status HTTP esperado: 200', () => pm.expect(pm.response.code).to.be.oneOf([200]));
+      

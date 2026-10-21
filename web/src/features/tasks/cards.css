@@ -1,0 +1,221 @@
+/* ---------- card ---------- */
+.card-shell {
+  touch-action: manipulation;
+  border-radius: 12px;
+  cursor: grab;
+}
+.card-shell:focus-visible {
+  outline-offset: 3px;
+}
+.card-shell.is-ghost .card {
+  opacity: 0.4;
+  border-style: dashed;
+  border-color: var(--accent-ring);
+  background: var(--accent-soft);
+  box-shadow: none;
+}
+.card-shell.is-ghost .card > * {
+  visibility: hidden;
+}
+
+.card {
+  padding: 11px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: linear-gradient(180deg, #191920, #15151b);
+  box-shadow:
+    0 1px 0 rgb(255 255 255 / 0.03) inset,
+    0 4px 12px -8px #000;
+  transition:
+    border-color 0.18s,
+    box-shadow 0.18s,
+    transform 0.18s;
+}
+.card-shell:hover .card {
+  border-color: #38324f;
+  transform: translateY(-1px);
+  box-shadow:
+    0 1px 0 rgb(255 255 255 / 0.04) inset,
+    0 10px 24px -14px rgb(139 92 246 / 0.55);
+}
+.card-lifted {
+  cursor: grabbing;
+  border-color: var(--accent);
+  transform: rotate(1.5deg) scale(1.02);
+  box-shadow:
+    0 24px 48px -16px #000,
+    0 0 32px -8px rgb(139 92 246 / 0.6);
+}
+.card-fresh {
+  animation: fresh 1.8s ease-out;
+}
+@keyframes fresh {
+  0%,
+  30% {
+    border-color: var(--accent);
+    box-shadow:
+      0 0 0 3px var(--accent-soft),
+      0 0 28px -6px var(--accent);
+  }
+}
+.card-top {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+.card-title {
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+  font-size: 14px;
+  font-weight: 550;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+.card-done .card-title {
+  color: var(--text-dim);
+}
+.done-check {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 16px;
+  height: 16px;
+  margin-top: 2px;
+  border-radius: 50%;
+  background: var(--success);
+  color: var(--bg);
+}
+.flag {
+  flex: none;
+  display: inline-grid;
+  margin-top: 2px;
+}
+.flag-alta {
+  color: var(--warn);
+}
+.flag-urgente {
+  color: var(--danger);
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+  margin: 9px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-dim);
+}
+.tag-more {
+  color: var(--text-faint);
+}
+/* Card estreito (colunas encolhidas para caber o quadro): 2 etiquetas e o +N recalculado. */
+.card {
+  container: card / inline-size;
+}
+.tag-more-narrow {
+  display: none;
+}
+@container card (max-width: 265px) {
+  .tag-third,
+  .tag-more-wide {
+    display: none;
+  }
+  .tag-more-narrow {
+    display: inline-flex;
+  }
+}
+.card-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 10px;
+  font-size: 12px;
+  color: var(--text-faint);
+}
+.card-meta > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.card-meta > .card-branch {
+  min-width: 0;
+  font: 500 11.5px var(--mono);
+  color: var(--text-dim);
+}
+.card-branch > span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.card-branch svg {
+  flex: none;
+  color: var(--accent-hi);
+}
+.due-overdue {
+  color: var(--danger) !important;
+}
+.due-today {
+  color: var(--warn) !important;
+}
+.due-soon {
+  color: var(--accent-hi);
+}
+.check-full {
+  color: var(--success);
+}
+
+.quick-add-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0 10px 10px;
+  padding: 7px 8px;
+  border: 0;
+  border-radius: 9px;
+  background: none;
+  color: var(--text-faint);
+  font-size: 13px;
+  font-weight: 550;
+  transition:
+    color 0.15s,
+    background 0.15s;
+}
+.quick-add-btn:hover {
+  color: var(--text);
+  background: var(--surface-2);
+}
+.quick-add {
+  margin: 0 10px 10px;
+}
+.quick-add input,
+.add-column input {
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: 1px solid var(--accent);
+  background: var(--surface-2);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+  outline: none;
+}
+.quick-add-hint {
+  margin: 6px 2px 0;
+  font-size: 12px;
+  color: var(--text-faint);
+}
+.add-column {
+  flex: 0 0 200px;
+}
+.add-column .quick-add-btn {
+  margin: 0;
+  width: 100%;
+  border: 1px dashed var(--border-strong);
+}

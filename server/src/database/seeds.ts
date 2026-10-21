@@ -1,0 +1,38 @@
+export const SEED_COLUMNS: Array<[name: string, isDone: boolean]> = [
+  ['A fazer', false],
+  ['Fazendo', false],
+  ['Em teste', false],
+  ['Feito', true],
+];
+
+// Cores das adquirentes são aproximadas e editáveis na tela de etiquetas.
+export const SEED_LABELS: Array<[grp: string, name: string, color: string]> = [
+  ['Produto', 'SG-PDV', '#3B6CF6'],
+  ['Produto', 'SG-PAY', '#7C4DFF'],
+  ['Produto', 'Site das maquininhas', '#0EA5A4'],
+  ['Produto', 'Passou Lavou', '#06B6D4'],
+  ['Produto', 'Comandas Mobile', '#F97316'],
+  ['Produto', 'POS Manager', '#6366F1'],
+  ['Produto', 'POS Compatibility', '#8B5CF6'],
+  ['Produto', 'SG Life', '#EC4899'],
+  ['Produto', 'SG Presença Digital', '#14B8A6'],
+  ['Produto', 'Meu Financeiro', '#84CC16'],
+  ['Maquininha', 'Mercado Pago', '#00A6E0'],
+  ['Maquininha', 'Stone', '#00A868'],
+  ['Maquininha', 'Getnet', '#E3000F'],
+  ['Maquininha', 'Cielo', '#0079C1'],
+  ['Maquininha', 'Sicoob', '#00796B'],
+  ['Maquininha', 'Clover', '#1C8C3C'],
+  ['Maquininha', 'PagBank', '#D4A500'],
+  ['Maquininha', 'Vero', '#0057B8'],
+  ['Maquininha', 'BIN', '#F26722'],
+  ['Demanda', 'Ajustes', '#F59E0B'],
+  ['Demanda', 'Implementação', '#2563EB'],
+  ['Demanda', 'SUP-DES', '#DC2626'],
+  ['Demanda', 'Caso Marcelo', '#9333EA'],
+  ['Tipo', 'Bug', '#EF4444'],
+  ['Tipo', 'Feature', '#22C55E'],
+  ['Tipo', 'Urgente', '#B91C1C'],
+  ['Tipo', 'Reunião', '#64748B'],
+  ['Tipo', 'Deploy', '#0891B2'],
+];

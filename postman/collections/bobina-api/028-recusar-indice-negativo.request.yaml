@@ -1,0 +1,21 @@
+$kind: http-request
+name: "Recusar índice negativo"
+order: 28000
+method: POST
+url: '{{baseUrl}}/tasks/{{taskId}}/move'
+headers:
+  - key: "Content-Type"
+    value: "application/json"
+body:
+  type: json
+  content: |-
+    {
+      "columnId": "{{todoId}}",
+      "index": -1
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('Status HTTP esperado: 400', () => pm.expect(pm.response.code).to.be.oneOf([400]));
+      

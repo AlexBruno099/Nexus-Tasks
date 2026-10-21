@@ -1,0 +1,22 @@
+$kind: http-request
+name: "Recusar nova tarefa em branch trancada"
+order: 34000
+method: POST
+url: '{{baseUrl}}/tasks'
+headers:
+  - key: "Content-Type"
+    value: "application/json"
+body:
+  type: json
+  content: |-
+    {
+      "title": "Trancada",
+      "columnId": "{{todoId}}",
+      "branchId": "{{branchId}}"
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('Status HTTP esperado: 409', () => pm.expect(pm.response.code).to.be.oneOf([409]));
+      

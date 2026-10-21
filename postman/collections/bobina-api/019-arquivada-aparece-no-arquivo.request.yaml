@@ -1,0 +1,12 @@
+$kind: http-request
+name: "Arquivada aparece no arquivo"
+order: 19000
+method: GET
+url: '{{baseUrl}}/board?archived=1'
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('Status HTTP esperado: 200', () => pm.expect(pm.response.code).to.be.oneOf([200]));
+      pm.test("Presente no arquivo", () => pm.expect(pm.response.json().tasks.find(t => t.id === Number(pm.collectionVariables.get('taskId'))).archived).to.eql(true));
+      

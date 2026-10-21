@@ -1,0 +1,17 @@
+$kind: http-example
+name: Resposta
+request:
+  method: POST
+  url: '{{baseUrl}}/tasks'
+response:
+  statusCode: 400
+  statusText: "Bad Request"
+  headers:
+    - key: Content-Type
+      value: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "error": "title: o título não pode ficar vazio"
+      }

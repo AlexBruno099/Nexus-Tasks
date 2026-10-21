@@ -1,0 +1,12 @@
+$kind: http-request
+name: "Ler quadro e conferir contrato"
+order: 2000
+method: GET
+url: '{{baseUrl}}/board'
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('Status HTTP esperado: 200', () => pm.expect(pm.response.code).to.be.oneOf([200]));
+      pm.test('Quadro contém as quatro listas', () => pm.expect(pm.response.json()).to.have.all.keys('columns','labels','branches','tasks'));
+      pm.test('Listas e contratos', () => { const b=pm.response.json(); ['columns','labels','branches','tasks'].forEach(k=>pm.expect(b[k]).to.be.an('array')); b.tasks.forEach(t=>pm.expect(t).to.have.jsonSchema({"type":"object","required":["id","title","description","columnId","position","priority","dueDate","checklist","archived","createdAt","updatedAt","completedAt","labelIds","branchId"],"additionalProperties":false,"properties":{"id":{"type":"integer","minimum":1},"title":{"type":"string","minLength":1,"maxLength":200},"description":{"type":"string"},"columnId":{"type":"integer"},"position":{"type":"integer"},"priority":{"enum":["baixa","media","alta","urgente"]},"dueDate":{"type":["string","null"]},"checklist":{"type":"array","items":{"type":"object","required":["id","text","done"],"properties":{"id":{"type":"string"},"text":{"type":"string"},"done":{"type":"boolean"}}}},"archived":{"type":"boolean"},"createdAt":{"type":"string","format":"date-time"},"updatedAt":{"type":"string","format":"date-time"},"completedAt":{"type":["string","null"],"format":"date-time"},"labelIds":{"type":"array","items":{"type":"integer"},"uniqueItems":true},"branchId":{"type":["integer","null"]}}})); });

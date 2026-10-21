@@ -1,0 +1,15 @@
+version: 1
+id: 512305fd-b518-4d4c-9117-4d75dc35dc6a
+name: nexus-tasks local
+slug: bobina-local
+protocol: http
+port: 4010
+interceptRequests: true
+scenarios:
+  - name: default
+    default: true
+    path: ./default.js
+  - name: unavailable
+    path: ./unavailable.js
+  - name: rate-limited
+    path: ./rate-limited.js

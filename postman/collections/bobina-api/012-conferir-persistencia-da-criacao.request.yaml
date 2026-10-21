@@ -1,0 +1,12 @@
+$kind: http-request
+name: "Conferir persistência da criação"
+order: 12000
+method: GET
+url: '{{baseUrl}}/board'
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('Status HTTP esperado: 200', () => pm.expect(pm.response.code).to.be.oneOf([200]));
+      pm.test("Tarefa presente", () => pm.expect(pm.response.json().tasks.find(t => t.id === Number(pm.collectionVariables.get('taskId'))).description).to.eql('Contexto de teste'));
+      

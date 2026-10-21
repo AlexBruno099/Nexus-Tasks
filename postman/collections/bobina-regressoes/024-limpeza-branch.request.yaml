@@ -1,0 +1,11 @@
+$kind: http-request
+name: "Limpeza — branch"
+order: 24000
+method: DELETE
+url: '{{baseUrl}}/branches/{{branchId}}'
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('Status HTTP esperado: 204 ou 404', () => pm.expect(pm.response.code).to.be.oneOf([204,404]));
+      

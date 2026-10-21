@@ -1,0 +1,22 @@
+$kind: http-request
+name: "Configurar coluna como concluída"
+order: 5000
+method: PATCH
+url: '{{baseUrl}}/columns/{{doneId}}'
+headers:
+  - key: "Content-Type"
+    value: "application/json"
+body:
+  type: json
+  content: |-
+    {
+      "isDone": true,
+      "name": "Feito {{runId}}"
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('Status HTTP esperado: 200', () => pm.expect(pm.response.code).to.be.oneOf([200]));
+      pm.test("Coluna de conclusão", () => pm.expect(pm.response.json().isDone).to.eql(true));
+      

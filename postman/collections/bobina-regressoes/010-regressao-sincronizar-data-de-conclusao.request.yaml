@@ -1,0 +1,11 @@
+$kind: http-request
+name: "Regressão — sincronizar data de conclusão"
+order: 10000
+method: GET
+url: '{{baseUrl}}/board'
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('Status HTTP esperado: 200', () => pm.expect(pm.response.code).to.be.oneOf([200]));
+      pm.test('Tarefa da coluna concluída tem completedAt',()=>pm.expect(pm.response.json().tasks.find(t => t.id === Number(pm.collectionVariables.get('completionTaskId'))).completedAt).to.be.a('string'));

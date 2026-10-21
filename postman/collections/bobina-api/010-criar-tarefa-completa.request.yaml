@@ -1,0 +1,39 @@
+$kind: http-request
+name: "Criar tarefa completa"
+order: 10000
+method: POST
+url: '{{baseUrl}}/tasks'
+headers:
+  - key: "Content-Type"
+    value: "application/json"
+body:
+  type: json
+  content: |-
+    {
+      "title": "  Tarefa {{runId}}  ",
+      "columnId": "{{todoId}}",
+      "description": "Contexto de teste",
+      "priority": "alta",
+      "dueDate": "2026-10-20",
+      "labelIds": [
+        "{{labelId}}",
+        "{{labelId}}"
+      ],
+      "branchId": "{{branchId}}",
+      "checklist": [
+        {
+          "id": "item-1",
+          "text": "Verificar API",
+          "done": false
+        }
+      ]
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('Status HTTP esperado: 201', () => pm.expect(pm.response.code).to.be.oneOf([201]));
+      if (pm.response.code === 201) pm.collectionVariables.set('taskId', pm.response.json().id);pm.test('Contrato da tarefa', () => pm.response.to.have.jsonSchema({"type":"object","required":["id","title","description","columnId","position","priority","dueDate","checklist","archived","createdAt","updatedAt","completedAt","labelIds","branchId"],"additionalProperties":false,"properties":{"id":{"type":"integer","minimum":1},"title":{"type":"string","minLength":1,"maxLength":200},"description":{"type":"string"},"columnId":{"type":"integer"},"position":{"type":"integer"},"priority":{"enum":["baixa","media","alta","urgente"]},"dueDate":{"type":["string","null"]},"checklist":{"type":"array","items":{"type":"object","required":["id","text","done"],"properties":{"id":{"type":"string"},"text":{"type":"string"},"done":{"type":"boolean"}}}},"archived":{"type":"boolean"},"createdAt":{"type":"string","format":"date-time"},"updatedAt":{"type":"string","format":"date-time"},"completedAt":{"type":["string","null"],"format":"date-time"},"labelIds":{"type":"array","items":{"type":"integer"},"uniqueItems":true},"branchId":{"type":["integer","null"]}}}));
+      pm.test("Etiquetas sem duplicação", () => pm.expect(pm.response.json().labelIds).to.eql([Number(pm.collectionVariables.get('labelId'))]));
+      pm.test("Título normalizado", () => pm.expect(pm.response.json().title).to.eql('Tarefa '+pm.collectionVariables.get('runId')));
+      

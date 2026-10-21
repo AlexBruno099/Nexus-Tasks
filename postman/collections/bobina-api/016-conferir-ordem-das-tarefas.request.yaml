@@ -1,0 +1,12 @@
+$kind: http-request
+name: "Conferir ordem das tarefas"
+order: 16000
+method: GET
+url: '{{baseUrl}}/board'
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('Status HTTP esperado: 200', () => pm.expect(pm.response.code).to.be.oneOf([200]));
+      pm.test("Tarefa movida é a primeira", () => pm.expect(pm.response.json().tasks.filter(t=>t.columnId===Number(pm.collectionVariables.get('todoId')))[0].id).to.eql(Number(pm.collectionVariables.get('taskId'))));
+      

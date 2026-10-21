@@ -1,0 +1,53 @@
+/* ---------- avisos e carregamento ---------- */
+.toasts {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 80;
+  display: grid;
+  gap: 8px;
+  justify-items: end;
+}
+.toast {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  max-width: min(420px, calc(100vw - 32px));
+  padding: 9px 8px 9px 14px;
+  border-radius: 12px;
+  border: 1px solid var(--border-strong);
+  background: #17171f;
+  font-size: 13.5px;
+  font-weight: 550;
+  box-shadow: 0 18px 40px -12px #000;
+}
+.splash {
+  height: 100%;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+}
+.splash-card {
+  max-width: 440px;
+  padding: 24px;
+  border-radius: 18px;
+  border: 1px solid var(--border-strong);
+  background: var(--surface);
+}
+.splash-card h1 {
+  margin: 0 0 8px;
+  font: 700 22px var(--display);
+}
+.splash-roll {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 3px solid var(--surface-3);
+  border-top-color: var(--accent);
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

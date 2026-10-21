@@ -1,0 +1,20 @@
+$kind: http-request
+name: "Recusar data impossível em atualização"
+order: 13000
+method: PATCH
+url: '{{baseUrl}}/tasks/{{completionTaskId}}'
+headers:
+  - key: "Content-Type"
+    value: "application/json"
+body:
+  type: json
+  content: |-
+    {
+      "dueDate": "2025-02-29"
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('Status HTTP esperado: 400', () => pm.expect(pm.response.code).to.be.oneOf([400]));
+      

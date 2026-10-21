@@ -1,0 +1,11 @@
+$kind: http-request
+name: "Regressão — impedir exclusão de tarefa trancada"
+order: 19000
+method: DELETE
+url: '{{baseUrl}}/tasks/{{lockedTaskId}}'
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('Status HTTP esperado: 409', () => pm.expect(pm.response.code).to.be.oneOf([409]));
+      

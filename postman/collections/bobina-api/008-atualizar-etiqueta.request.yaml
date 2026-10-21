@@ -1,0 +1,23 @@
+$kind: http-request
+name: "Atualizar etiqueta"
+order: 8000
+method: PATCH
+url: '{{baseUrl}}/labels/{{labelId}}'
+headers:
+  - key: "Content-Type"
+    value: "application/json"
+body:
+  type: json
+  content: |-
+    {
+      "name": "PM {{runId}}",
+      "color": "#22C55E",
+      "grp": "Verificação"
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('Status HTTP esperado: 200', () => pm.expect(pm.response.code).to.be.oneOf([200]));
+      pm.test("Cor atualizada", () => pm.expect(pm.response.json().color).to.eql('#22C55E'));
+      

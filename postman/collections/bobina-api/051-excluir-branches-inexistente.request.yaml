@@ -1,0 +1,11 @@
+$kind: http-request
+name: "Excluir branches inexistente"
+order: 51000
+method: DELETE
+url: '{{baseUrl}}/branches/2147483647'
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('Status HTTP esperado: 404', () => pm.expect(pm.response.code).to.be.oneOf([404]));
+      

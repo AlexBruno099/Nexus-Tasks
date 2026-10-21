@@ -1,0 +1,14 @@
+$kind: http-request
+name: "Simular limite de requisições"
+order: 3000
+method: GET
+url: '{{baseUrl}}/health'
+headers:
+  - key: "x-mock-scenario"
+    value: "rate-limited"
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('Status HTTP esperado: 429', () => pm.expect(pm.response.code).to.be.oneOf([429]));
+      pm.test('Retry-After fornecido',()=>pm.expect(pm.response.headers.get('Retry-After')).to.eql('5'));

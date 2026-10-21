@@ -1,0 +1,106 @@
+/* ---------- lista e arquivo ---------- */
+.list-wrap {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  padding: 0 24px 24px;
+}
+.list {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13.5px;
+}
+.list th {
+  position: sticky;
+  top: 0;
+  padding: 8px 12px;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--text-faint);
+}
+.list td {
+  padding: 11px 12px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: middle;
+}
+.list tbody tr {
+  cursor: pointer;
+  transition: background 0.12s;
+}
+.list tbody tr:hover {
+  background: var(--surface);
+}
+.list .tags {
+  margin-top: 4px;
+}
+.list-title {
+  font-weight: 550;
+}
+.status-pill {
+  padding: 2px 9px;
+  border-radius: 999px;
+  border: 1px solid var(--border-strong);
+  font-size: 12px;
+  font-weight: 550;
+  white-space: nowrap;
+}
+.status-pill.done {
+  color: var(--success);
+  border-color: rgb(34 197 94 / 0.35);
+}
+.prio {
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 550;
+}
+.prio-baixa {
+  color: var(--text-faint);
+}
+.prio-media {
+  color: var(--text-dim);
+}
+.prio-alta {
+  color: var(--warn);
+  background: rgb(245 165 36 / 0.1);
+}
+.prio-urgente {
+  color: var(--danger);
+  background: rgb(244 63 94 / 0.12);
+}
+
+.archive {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0 24px 24px;
+  list-style: none;
+  overflow: auto;
+}
+.archive-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 12px 10px 16px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+}
+.archive-title {
+  flex: 1;
+  min-width: 0;
+  font-weight: 550;
+}
+.archive-title .muted {
+  font-weight: 400;
+  font-size: 12.5px;
+}
+.empty-state {
+  margin: 60px auto;
+  max-width: 420px;
+  text-align: center;
+  color: var(--text-faint);
+}

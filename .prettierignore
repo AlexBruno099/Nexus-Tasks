@@ -1,0 +1,8 @@
+node_modules
+dist
+backups
+package-lock.json
+postman/collections
+postman/exports
+postman/environments
+postman/reports

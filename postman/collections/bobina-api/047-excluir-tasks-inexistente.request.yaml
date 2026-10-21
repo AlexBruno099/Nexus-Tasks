@@ -1,0 +1,11 @@
+$kind: http-request
+name: "Excluir tasks inexistente"
+order: 47000
+method: DELETE
+url: '{{baseUrl}}/tasks/2147483647'
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('Status HTTP esperado: 404', () => pm.expect(pm.response.code).to.be.oneOf([404]));
+      

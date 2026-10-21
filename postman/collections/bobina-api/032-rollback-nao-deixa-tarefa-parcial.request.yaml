@@ -1,0 +1,12 @@
+$kind: http-request
+name: "Rollback não deixa tarefa parcial"
+order: 32000
+method: GET
+url: '{{baseUrl}}/board'
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('Status HTTP esperado: 200', () => pm.expect(pm.response.code).to.be.oneOf([200]));
+      pm.test("Criação inválida não persistiu", () => pm.expect(pm.response.json().tasks.some(t=>t.title==='Rollback '+pm.collectionVariables.get('runId'))).to.eql(false));
+      

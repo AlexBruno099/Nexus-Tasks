@@ -1,0 +1,18 @@
+$kind: http-request
+name: "Limpar sessão do mock"
+order: 7000
+method: POST
+url: '{{baseUrl}}/__mock/reset'
+headers:
+  - key: "Content-Type"
+    value: "application/json"
+body:
+  type: json
+  content: |-
+    {}
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('Status HTTP esperado: 200', () => pm.expect(pm.response.code).to.be.oneOf([200]));
+      

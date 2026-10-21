@@ -1,0 +1,20 @@
+$kind: http-request
+name: "Recusar entrada em branch trancada"
+order: 35000
+method: PATCH
+url: '{{baseUrl}}/tasks/{{secondId}}'
+headers:
+  - key: "Content-Type"
+    value: "application/json"
+body:
+  type: json
+  content: |-
+    {
+      "branchId": "{{branchId}}"
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('Status HTTP esperado: 409', () => pm.expect(pm.response.code).to.be.oneOf([409]));
+      

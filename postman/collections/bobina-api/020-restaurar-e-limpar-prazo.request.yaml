@@ -1,0 +1,23 @@
+$kind: http-request
+name: "Restaurar e limpar prazo"
+order: 20000
+method: PATCH
+url: '{{baseUrl}}/tasks/{{taskId}}'
+headers:
+  - key: "Content-Type"
+    value: "application/json"
+body:
+  type: json
+  content: |-
+    {
+      "archived": false,
+      "dueDate": null
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('Status HTTP esperado: 200', () => pm.expect(pm.response.code).to.be.oneOf([200]));
+      pm.test("Restaurada", () => pm.expect(pm.response.json().archived).to.eql(false));
+      pm.test("Prazo removido", () => pm.expect(pm.response.json().dueDate).to.eql(null));
+      

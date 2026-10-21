@@ -1,0 +1,18 @@
+$kind: http-request
+name: "Atualizar branches inexistente"
+order: 50000
+method: PATCH
+url: '{{baseUrl}}/branches/2147483647'
+headers:
+  - key: "Content-Type"
+    value: "application/json"
+body:
+  type: json
+  content: |-
+    {}
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('Status HTTP esperado: 404', () => pm.expect(pm.response.code).to.be.oneOf([404]));
+      

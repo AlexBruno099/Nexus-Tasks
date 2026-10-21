@@ -1,0 +1,20 @@
+$kind: http-request
+name: "Recusar prioridade desconhecida"
+order: 22000
+method: PATCH
+url: '{{baseUrl}}/tasks/{{taskId}}'
+headers:
+  - key: "Content-Type"
+    value: "application/json"
+body:
+  type: json
+  content: |-
+    {
+      "priority": "inexistente"
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('Status HTTP esperado: 400', () => pm.expect(pm.response.code).to.be.oneOf([400]));
+      

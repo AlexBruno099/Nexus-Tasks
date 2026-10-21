@@ -1,0 +1,12 @@
+$kind: http-request
+name: "Arquivada sai do quadro"
+order: 18000
+method: GET
+url: '{{baseUrl}}/board'
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('Status HTTP esperado: 200', () => pm.expect(pm.response.code).to.be.oneOf([200]));
+      pm.test("Ausente no quadro", () => pm.expect(pm.response.json().tasks.some(t=>t.id===Number(pm.collectionVariables.get('taskId')))).to.eql(false));
+      

@@ -1,0 +1,24 @@
+$kind: http-request
+name: "Resetar sessão do mock"
+order: 1000
+method: POST
+url: '{{baseUrl}}/__mock/reset'
+headers:
+  - key: "Content-Type"
+    value: "application/json"
+body:
+  type: json
+  content: |-
+    {}
+scripts:
+  - type: beforeRequest
+    language: text/javascript
+    code: |-
+      pm.collectionVariables.set('runId', Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 8));
+      ['todoId','doneId','labelId','branchId','taskId','secondId','lockedTaskId','lockedBranchId','goneTaskId','goneBranchId','completionTaskId'].forEach(k => pm.collectionVariables.unset(k));
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('Status HTTP esperado: 200', () => pm.expect(pm.response.code).to.be.oneOf([200]));
+      pm.test("Reset confirmado", () => pm.expect(pm.response.json().ok).to.eql(true));
+      

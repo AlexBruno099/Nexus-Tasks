@@ -1,0 +1,20 @@
+$kind: http-request
+name: "Recusar edição de branch trancada"
+order: 37000
+method: PATCH
+url: '{{baseUrl}}/branches/{{branchId}}'
+headers:
+  - key: "Content-Type"
+    value: "application/json"
+body:
+  type: json
+  content: |-
+    {
+      "notes": "Não deve gravar"
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('Status HTTP esperado: 409', () => pm.expect(pm.response.code).to.be.oneOf([409]));
+      

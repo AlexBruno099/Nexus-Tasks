@@ -1,0 +1,20 @@
+$kind: http-request
+name: "Recusar identificador inválido"
+order: 27000
+method: PATCH
+url: '{{baseUrl}}/tasks/abc'
+headers:
+  - key: "Content-Type"
+    value: "application/json"
+body:
+  type: json
+  content: |-
+    {
+      "title": "Inválida"
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('Status HTTP esperado: 400', () => pm.expect(pm.response.code).to.be.oneOf([400]));
+      

@@ -1,0 +1,12 @@
+$kind: http-request
+name: "Exclusão da etiqueta limpa vínculos"
+order: 42000
+method: GET
+url: '{{baseUrl}}/board'
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('Status HTTP esperado: 200', () => pm.expect(pm.response.code).to.be.oneOf([200]));
+      pm.test("Tarefa sem etiquetas", () => pm.expect(pm.response.json().tasks.find(t => t.id === Number(pm.collectionVariables.get('taskId'))).labelIds).to.eql([]));
+      

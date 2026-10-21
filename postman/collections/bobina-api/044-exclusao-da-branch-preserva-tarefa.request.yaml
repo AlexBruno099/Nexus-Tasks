@@ -1,0 +1,12 @@
+$kind: http-request
+name: "Exclusão da branch preserva tarefa"
+order: 44000
+method: GET
+url: '{{baseUrl}}/board'
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('Status HTTP esperado: 200', () => pm.expect(pm.response.code).to.be.oneOf([200]));
+      pm.test("Tarefa preservada sem branch", () => pm.expect(pm.response.json().tasks.find(t => t.id === Number(pm.collectionVariables.get('taskId'))).branchId).to.eql(null));
+      

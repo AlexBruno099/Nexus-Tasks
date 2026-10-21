@@ -1,0 +1,21 @@
+$kind: http-request
+name: "Restaurar vínculo com branch"
+order: 40000
+method: PATCH
+url: '{{baseUrl}}/tasks/{{taskId}}'
+headers:
+  - key: "Content-Type"
+    value: "application/json"
+body:
+  type: json
+  content: |-
+    {
+      "branchId": "{{branchId}}"
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('Status HTTP esperado: 200', () => pm.expect(pm.response.code).to.be.oneOf([200]));
+      pm.test("Branch restaurada", () => pm.expect(pm.response.json().branchId).to.eql(Number(pm.collectionVariables.get('branchId'))));
+      

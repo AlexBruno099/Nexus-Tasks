@@ -1,0 +1,12 @@
+$kind: http-request
+name: "Sessão original preserva estado"
+order: 6000
+method: GET
+url: '{{baseUrl}}/board'
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('Status HTTP esperado: 200', () => pm.expect(pm.response.code).to.be.oneOf([200]));
+      pm.test("Dado presente na sessão original", () => pm.expect(pm.response.json().columns.some(c=>c.id===Number(pm.collectionVariables.get('todoId')))).to.eql(true));
+      

@@ -1,0 +1,11 @@
+$kind: http-request
+name: "Recusar exclusão de coluna ocupada"
+order: 45000
+method: DELETE
+url: '{{baseUrl}}/columns/{{todoId}}'
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('Status HTTP esperado: 409', () => pm.expect(pm.response.code).to.be.oneOf([409]));
+      

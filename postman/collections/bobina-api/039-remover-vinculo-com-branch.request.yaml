@@ -1,0 +1,21 @@
+$kind: http-request
+name: "Remover vínculo com branch"
+order: 39000
+method: PATCH
+url: '{{baseUrl}}/tasks/{{taskId}}'
+headers:
+  - key: "Content-Type"
+    value: "application/json"
+body:
+  type: json
+  content: |-
+    {
+      "branchId": null
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('Status HTTP esperado: 200', () => pm.expect(pm.response.code).to.be.oneOf([200]));
+      pm.test("Sem branch", () => pm.expect(pm.response.json().branchId).to.eql(null));
+      

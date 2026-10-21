@@ -1,0 +1,11 @@
+$kind: http-request
+name: "Excluir columns inexistente"
+order: 53000
+method: DELETE
+url: '{{baseUrl}}/columns/2147483647'
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('Status HTTP esperado: 404', () => pm.expect(pm.response.code).to.be.oneOf([404]));
+      

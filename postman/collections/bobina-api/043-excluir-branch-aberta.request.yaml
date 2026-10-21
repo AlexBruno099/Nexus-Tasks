@@ -1,0 +1,12 @@
+$kind: http-request
+name: "Excluir branch aberta"
+order: 43000
+method: DELETE
+url: '{{baseUrl}}/branches/{{branchId}}'
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('Status HTTP esperado: 204', () => pm.expect(pm.response.code).to.be.oneOf([204]));
+      pm.test('Resposta sem corpo', () => pm.expect(pm.response.text()).to.eql(''));
+      

@@ -1,0 +1,21 @@
+$kind: http-request
+name: "Aceitar ano bissexto"
+order: 14000
+method: PATCH
+url: '{{baseUrl}}/tasks/{{completionTaskId}}'
+headers:
+  - key: "Content-Type"
+    value: "application/json"
+body:
+  type: json
+  content: |-
+    {
+      "dueDate": "2028-02-29"
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('Status HTTP esperado: 200', () => pm.expect(pm.response.code).to.be.oneOf([200]));
+      pm.test("Prazo bissexto preservado", () => pm.expect(pm.response.json().dueDate).to.eql('2028-02-29'));
+      

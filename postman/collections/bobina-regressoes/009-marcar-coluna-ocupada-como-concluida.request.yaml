@@ -1,0 +1,20 @@
+$kind: http-request
+name: "Marcar coluna ocupada como concluída"
+order: 9000
+method: PATCH
+url: '{{baseUrl}}/columns/{{todoId}}'
+headers:
+  - key: "Content-Type"
+    value: "application/json"
+body:
+  type: json
+  content: |-
+    {
+      "isDone": true
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('Status HTTP esperado: 200', () => pm.expect(pm.response.code).to.be.oneOf([200]));
+      

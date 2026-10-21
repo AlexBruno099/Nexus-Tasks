@@ -1,0 +1,15 @@
+$kind: http-request
+name: "Simular indisponibilidade"
+order: 2000
+method: GET
+url: '{{baseUrl}}/health'
+headers:
+  - key: "x-mock-scenario"
+    value: "unavailable"
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('Status HTTP esperado: 503', () => pm.expect(pm.response.code).to.be.oneOf([503]));
+      pm.test("Erro genérico", () => pm.expect(pm.response.json().error).to.eql('Serviço temporariamente indisponível.'));
+      

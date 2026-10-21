@@ -1,0 +1,12 @@
+$kind: http-request
+name: "Conclusão removida ao reabrir coluna"
+order: 16000
+method: GET
+url: '{{baseUrl}}/board'
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('Status HTTP esperado: 200', () => pm.expect(pm.response.code).to.be.oneOf([200]));
+      pm.test("completedAt volta a null", () => pm.expect(pm.response.json().tasks.find(t => t.id === Number(pm.collectionVariables.get('completionTaskId'))).completedAt).to.eql(null));
+      

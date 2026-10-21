@@ -1,0 +1,6 @@
+name: "nexus-tasks — Mock local"
+values:
+  - key: baseUrl
+    value: "http://localhost:4010/api"
+    enabled: true
+    type: default

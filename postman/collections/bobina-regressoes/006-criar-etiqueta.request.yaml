@@ -1,0 +1,23 @@
+$kind: http-request
+name: "Criar etiqueta"
+order: 6000
+method: POST
+url: '{{baseUrl}}/labels'
+headers:
+  - key: "Content-Type"
+    value: "application/json"
+body:
+  type: json
+  content: |-
+    {
+      "name": "PM {{runId}}",
+      "color": "#8B5CF6",
+      "grp": "Postman"
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('Status HTTP esperado: 201', () => pm.expect(pm.response.code).to.be.oneOf([201]));
+      if (pm.response.code === 201) pm.collectionVariables.set('labelId', pm.response.json().id);pm.test("Grupo da etiqueta", () => pm.expect(pm.response.json().grp).to.eql('Postman'));
+      
